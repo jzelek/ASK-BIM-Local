@@ -1,0 +1,4 @@
+from .final_answer import answer_based_on_query_results
+from .generate_SPARQL import construct_sparql_queries
+from .identify_classes import identify_relevant_classes
+from .simplify_question import simplify_user_question
