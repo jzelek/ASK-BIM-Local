@@ -3,7 +3,7 @@ A tool designed to process natural language user queries about buildings using S
 
 ---
 
-## 🚀 IFC to LBD Graph Conversion Process
+## IFC to LBD Graph Conversion Process
 To convert an **IFC file** into a **Knowledge Graph** suitable for querying, we use the **IFCtoLBD Converter**, which can be accessed here:  
 🔗 [IFCtoLBD Converter](https://github.com/jyrkioraskari/IFCtoLBD/tree/master)
 
@@ -18,7 +18,7 @@ Before running the chatbot, ensure you have:
 
 ---
 
-## 🚀 Running the Chatbot
+## Running the Chatbot
 The chatbot follows a structured process:
 1. **Simplifies the user query** (if needed).
 2. **Identifies relevant IFC classes** in the Knowledge Graph.
