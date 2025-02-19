@@ -1,3 +1,5 @@
+import os
+
 # SPARQL endpoint and queries
 SPARQL_ENDPOINT = "http://127.0.0.1:7200/repositories/Barcelona2"
 
@@ -47,4 +49,4 @@ PREFIXES = {
 }
 
 # OpenAI API key – ideally set this via an environment variable for security
-OPENAI_API_KEY = "REMOVED_OPENAI_API_KEY"
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
