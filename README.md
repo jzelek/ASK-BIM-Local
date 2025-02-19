@@ -20,4 +20,4 @@ By default, `main.py` runs a **predefined user query**. Modify the variable insi
 Modify `config.py` to update:
 - **SPARQL endpoint** = A running triplestore instance with IFC-graph stored in it (i.e: "http://127.0.0.1:7200/repositories/Barcelona2")
 - **Prefixes for the ontology** = Prefixes manually extracted from the IFC-graph
-- **OpenAI API Key** = Persona openai key
+- **OpenAI API Key** = Personal openai key
