@@ -4,6 +4,11 @@ A tool designed to process natural language user queries about buildings using S
 ---
 
 ## 🚀 Running the Chatbot
+
+### Prerequisites
+- Running triplestore instance with an IFC file already converted in IFC-Graph
+
+### Process
 The chatbot follows a multi-step process where it:
 1. **Simplifies the question** (if necessary).
 2. **Identifies relevant IFC classes** from the Knowledge Graph.
