@@ -8,9 +8,9 @@ Each question is classified as:
 - **(I)** = **Indirect Question** (Requires additional reasoning, inference, or aggregation beyond directly stored data).  
 
 Additionally, each question is evaluated for correctness:
-- ✅ **Correct** = Clearly answerable using available data.  
-- ⚠️ **Partially Correct** = Requires clarification or additional assumptions.  
-- ❌ **Incorrect** = Uses undefined entities, excessive inference, or is difficult to answer directly.  
+- ✅ **Correct** = The provided answer fully addressed the question.  
+- ⚠️ **Partially Correct** = the response contained minor errors or missing details.  
+- ❌ **Incorrect** = The system failed to generate a valid or meaningful answer.  
 
 ---
 
