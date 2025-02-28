@@ -1,4 +1,4 @@
-# **ASK-BIM Tool Evaluation on Barcelona.ifc**
+# **Tool Evaluation on Barcelona.ifc**
 
 ### **Overview**
 The following results come from testing the **ASK-BIM tool** on the **Barcelona.ifc** file, which was converted into an **LBD (Linked Building Data) graph** using the **IFC-to-LBD converter**. The evaluation categorizes questions based on their complexity and reasoning type, analyzing whether the tool can correctly answer them given the graph's structure. 
