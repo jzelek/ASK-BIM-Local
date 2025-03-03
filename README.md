@@ -70,4 +70,4 @@ Modify `config.py` to update the following settings:
 ---
 
 ## 📜 License
-This project is open-source. Feel free to contribute and improve it! 🚀
+This project is open-source. 
