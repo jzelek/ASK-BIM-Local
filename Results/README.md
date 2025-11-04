@@ -44,7 +44,7 @@ Additionally, each question is evaluated for correctness:
 5. ✅ **(D)** Which walls are supporting other structural elements in the building?  
 6. ❌ **(I)** What is the total area enclosed by the walls on the second floor?  
 7. ✅ **(D)** What is the window-to-wall ratio in the building?  
-8. ✅ **(D)** Which columns span across multiple floors in the building?  
+8. ✅ **(D)** Are there any rooms connected to more than one room through doors?  
 9. ❌ **(I)** What is the ratio of usable floor area to the gross area for the second floor?  
 10. ❌ **(I)** Which ramps in the building are accessible according to universal design standards?  
 11. ❌ **(I)** Are there any irregular-shaped rooms?  
