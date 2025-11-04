@@ -1,16 +1,17 @@
 # **Tool Evaluation on Barcelona.ifc**
 
 ### **Overview**
-The following results come from testing the **ASK-BIM tool** on the **Barcelona.ifc** file, which was converted into an **LBD (Linked Building Data) graph** using the **IFC-to-LBD converter**. The evaluation categorizes questions based on their complexity and reasoning type, analyzing whether the tool can correctly answer them given the graph's structure. 
+The following evaluation presents the results obtained from testing the **ASK-BIM tool** on the **Barcelona.ifc** model, which was transformed into an **LBD (Linked Building Data) graph** through the **IFC-to-LBD converter**.  
+The assessment classifies questions according to their complexity and reasoning type, examining the tool’s ability to produce correct answers based on the structure of the generated graph.  
 
-Each question is classified as:
-- **(D)** = **Direct Question** (Answerable using explicitly represented entities and properties in the graph).  
-- **(I)** = **Indirect Question** (Requires additional reasoning, inference, or aggregation beyond directly stored data).  
+Each question is categorized as:
+- **(D)** = **Direct Question** (answerable using entities and properties that are explicitly represented in the graph).  
+- **(I)** = **Indirect Question** (requires reasoning, inference, or aggregation that extends beyond directly stored data).  
 
-Additionally, each question is evaluated for correctness:
-- ✅ **Correct** = The provided answer fully addressed the question.  
-- ⚠️ **Partially Correct** = the response contained minor errors or missing details.  
-- ❌ **Incorrect** = The system failed to generate a valid or meaningful answer.  
+Each result is also evaluated by accuracy:
+- ✅ **Correct** = The generated answer fully satisfied the question.  
+- ⚠️ **Partially Correct** = The response contained minor inaccuracies or lacked some details.  
+- ❌ **Incorrect** = The system failed to provide a valid or meaningful output.  
 
 ---
 
@@ -54,6 +55,7 @@ Additionally, each question is evaluated for correctness:
 ---
 
 ### **Conclusion**
-The ASK-BIM tool was tested on a **structured IFC dataset** converted into **Linked Building Data (LBD)** format. This classification provides insights into which questions can be **fully answered, partially answered, or not supported** due to limitations in the **graph representation or the tool’s reasoning capabilities** or in the tool capabilities.
+The ASK-BIM tool was evaluated on a **structured IFC dataset** converted into **Linked Building Data (LBD)** format.  
+This classification highlights which question types are **fully supported, partially supported, or currently unsupported**, due to limitations in either the **graph representation**, the **querying logic**, or the **reasoning capacity** of the tool.
 
-Further refinements to the **LBD conversion process** and **querying mechanisms** could improve the ability of the tool to handle more complex reasoning tasks.
+Future improvements in both the **LBD conversion workflow** and the **SPARQL query generation process** could enhance the tool’s performance in addressing more advanced reasoning and multi-step inference tasks.
