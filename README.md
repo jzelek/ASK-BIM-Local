@@ -69,6 +69,41 @@ LOCAL_LLM_MODEL="llama3.2:1b" python main.py
 
 Replace `llama3.2:1b` with the model you want to use.
 
+### Full first time setup for the NVIDIA DGX Spark
+
+```
+# Create local bin directory and add to PATH
+mkdir -p ~/.local/bin ~/.local/lib
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+
+# Download Ollama (ARM64)
+curl -L "https://ollama.com/download/ollama-linux-arm64.tar.zst" -o ~/ollama-linux-arm64.tar.zst
+
+# Extract
+tar -I zstd -xvf ~/ollama-linux-arm64.tar.zst -C ~/
+
+# Move binary and libraries
+mv ~/bin/ollama ~/.local/bin/ollama
+mv ~/lib/ollama ~/.local/lib/ollama
+chmod +x ~/.local/bin/ollama
+
+# Set library path
+echo 'export OLLAMA_LIB_PATH="$HOME/.local/lib/ollama"' >> ~/.bashrc
+source ~/.bashrc
+
+# Clean up tarball
+rm ~/ollama-linux-arm64.tar.zst
+
+# Start Ollama server
+ollama serve &
+sleep 2
+
+# Pull model
+ollama pull qwen3:235b
+```
+
+
 ### Option A: test only the local LLM
 Use this when you only want to check that the local model can answer.
 
