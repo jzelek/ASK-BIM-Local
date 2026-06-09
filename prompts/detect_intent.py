@@ -1,4 +1,7 @@
-# Function to interact with OpenAI's chat completions API for intent classification
+# Function to interact with the local chat-completions API for intent classification
+from config import LOCAL_LLM_MODEL, LOCAL_LLM_TEMPERATURE
+
+
 def detect_intent(user_question, client):
     chat_completion = client.chat.completions.create(
         messages=[
@@ -28,7 +31,8 @@ def detect_intent(user_question, client):
                 """
             }
         ],
-        model="gpt-4o-mini",
+        model=LOCAL_LLM_MODEL,
+        temperature=LOCAL_LLM_TEMPERATURE,
     )
     
     response = chat_completion.choices[0].message.content.strip()

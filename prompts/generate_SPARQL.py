@@ -1,4 +1,7 @@
 import re
+from config import LOCAL_LLM_MODEL, LOCAL_LLM_TEMPERATURE
+
+
 # Version 3 January 25
 # Function to construct SPARQL queries based on recognized classes, properties, and example values using LLM
 def construct_sparql_queries(classes_and_properties, question, prefixes, client):
@@ -62,17 +65,25 @@ def construct_sparql_queries(classes_and_properties, question, prefixes, client)
             {"role": "system", "content": "You are a SPARQL query generator for a building knowledge graph."},
             {"role": "user", "content": prompt}
         ],
-        model="gpt-4o-mini",
-        #model="o1",
+        model=LOCAL_LLM_MODEL,
+        temperature=LOCAL_LLM_TEMPERATURE,
     )
     
     response = chat_completion.choices[0].message.content.strip()
-    print("-----" * 10 )
-    print(f"\nGenerated SPARQL Query for question: {question}:\n{response}")
-    print("-----" * 10 )
 
-    # Extracting the text after the </query_planning> tag
-    match = re.search(r"</query_planning>\s*(.+)", response, re.DOTALL)
-    sparql_query = match.group(1).strip() if match else None
+    # Extract the query even when small local models do not follow the exact
+    # requested wrapper format.
+    code_block_match = re.search(r"```(?:sparql)?\s*(.*?)```", response, re.DOTALL | re.IGNORECASE)
+    if code_block_match:
+        sparql_query = code_block_match.group(1).strip()
+    else:
+        planning_match = re.search(r"</query_planning>\s*(.+)", response, re.DOTALL)
+        sparql_query = planning_match.group(1).strip() if planning_match else response.strip()
+
+    sparql_start = re.search(r"\b(PREFIX|SELECT|ASK|CONSTRUCT|DESCRIBE)\b", sparql_query, re.IGNORECASE)
+    if sparql_start:
+        sparql_query = sparql_query[sparql_start.start():].strip()
+    else:
+        sparql_query = ""
     
     return sparql_query

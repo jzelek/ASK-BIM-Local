@@ -1,4 +1,7 @@
 # VERSION 3
+from config import LOCAL_LLM_MODEL, LOCAL_LLM_TEMPERATURE
+
+
 # Function to execute SPARQL queries and generate an answer with LLM assistance
 def answer_based_on_query_results(user_question, sparql_query_results, client):
     
@@ -167,7 +170,8 @@ def answer_based_on_query_results(user_question, sparql_query_results, client):
             {"role": "system", "content": "You are assisting in answering user queries based on data retrieved from a building knowledge graph."},
             {"role": "user", "content": prompt}
         ],
-        model="gpt-4o-mini",
+        model=LOCAL_LLM_MODEL,
+        temperature=LOCAL_LLM_TEMPERATURE,
     )
 
     final_answer = chat_completion.choices[0].message.content.strip()

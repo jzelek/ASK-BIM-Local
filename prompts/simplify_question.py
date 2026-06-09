@@ -1,4 +1,9 @@
 # VERSION 4
+import re
+
+from config import LOCAL_LLM_MODEL, LOCAL_LLM_TEMPERATURE
+
+
 # Function to simplify a complex user question into simpler parts if necessary
 def simplify_user_question(user_question, client):
     # Prompt to simplify the question without losing content
@@ -86,18 +91,19 @@ def simplify_user_question(user_question, client):
             {"role": "system", "content": "You are a question simplifier for a building knowledge graph."},
             {"role": "user", "content": first_prompt}
         ],
-        model="gpt-4o-mini",
+        model=LOCAL_LLM_MODEL,
+        temperature=LOCAL_LLM_TEMPERATURE,
     )
 
     response_simplified = chat_completion.choices[0].message.content.strip()
-    print(f"\nSimplified Questions: {response_simplified}")
 
     # Parse the simplified questions from the response
     simplified_questions = []
     for line in response_simplified.split("\n"):
-        if line.startswith("**Question"):
-            question_text = line.split(":")[1].strip()
+        match = re.match(r"\*\*Question\s+\d+\*\*:\s*(.+)", line.strip())
+        if match:
+            question_text = match.group(1).strip().strip('"')
             if question_text != "No simplification needed.":
                 simplified_questions.append(question_text)
 
-    return simplified_questions
+    return simplified_questions or [user_question]

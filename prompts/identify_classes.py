@@ -1,7 +1,52 @@
 # Version 2
+from config import LOCAL_LLM_MODEL, LOCAL_LLM_TEMPERATURE
+
+
+def _parse_relevant_classes(response_text, available_classes, question):
+    available_set = set(available_classes)
+    parsed_classes = []
+
+    for line in response_text.splitlines():
+        if line.strip().startswith("**"):
+            raw_classes = line.strip()[2:].split(",")
+            for class_name in raw_classes:
+                cleaned_class = class_name.strip().strip("*`.:; ")
+                if cleaned_class in available_set and cleaned_class not in parsed_classes:
+                    parsed_classes.append(cleaned_class)
+
+    if parsed_classes:
+        return parsed_classes
+
+    for class_name in available_classes:
+        if class_name in response_text and class_name not in parsed_classes:
+            parsed_classes.append(class_name)
+
+    if parsed_classes:
+        return parsed_classes
+
+    question_lower = question.lower()
+    keyword_fallbacks = {
+        "door": ["beo:Door", "ifc:IfcOpeningElement"],
+        "doors": ["beo:Door", "ifc:IfcOpeningElement"],
+        "floor": ["bot:Storey", "beo:Slab-FLOOR"],
+        "storey": ["bot:Storey", "beo:Slab-FLOOR"],
+        "level": ["bot:Storey"],
+        "wall": ["beo:Wall"],
+        "window": ["beo:Window"],
+        "stair": ["beo:Stair", "beo:StairFlight"],
+        "column": ["beo:Column"],
+    }
+    for keyword, fallback_classes in keyword_fallbacks.items():
+        if keyword in question_lower:
+            for class_name in fallback_classes:
+                if class_name in available_set and class_name not in parsed_classes:
+                    parsed_classes.append(class_name)
+
+    return parsed_classes
+
+
 # Function to identify relevant classes for each simplified question
 def identify_relevant_classes(simplified_questions, classes, client):
-    relevant_classes_for_questions = []
     sub_questions_and_classes = []
 
     for idx, sub_question in enumerate(simplified_questions, start=1):
@@ -60,24 +105,13 @@ def identify_relevant_classes(simplified_questions, classes, client):
                 {"role": "system", "content": "You are an AI assistant specialized in analyzing building-related queries and identifying relevant classes from a building knowledge graph. Your task is to determine which classes are of high relevance to retrieve data for answering a user's question."},
                 {"role": "user", "content": second_prompt}
             ],
-            model="gpt-4o-mini",
+            model=LOCAL_LLM_MODEL,
+            temperature=LOCAL_LLM_TEMPERATURE,
         )
 
         response_text = chat_completion.choices[0].message.content.strip()
-        print(f"\nFull Response for Question {idx}:\n{response_text}")
         
-        # Split the output into lines
-        lines = response_text.splitlines()
-        
-        # Iterate over the lines to find the one starting with '**'
-        for line in lines:
-            if line.startswith('**'):
-                # Extract the classes from the line, removing '**' and splitting by commas
-                parsed_classes = [cls.strip() for cls in line[2:].split(',') if cls.strip()]
-
-        # Print the sub-question with the classes inside <question_analysis> tags
-        print(f"\nSub-Question {idx}:\n{sub_question}")
-        print(f"Classes: ", str(parsed_classes))
+        parsed_classes = _parse_relevant_classes(response_text, classes, sub_question)
 
         sub_questions_and_classes.append({
             "question": sub_question,
