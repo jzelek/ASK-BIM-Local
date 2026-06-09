@@ -168,7 +168,7 @@ Use this when you want to ask questions about the building data.
 ```bash
 pgrep ollama > /dev/null || ollama serve > ~/.ollama/server.log 2>&1 &
 sleep 2
-cd ASK-BIM
+cd ASK-BIM-Local
 python3 -m venv ASK-BIM_venv
 source ASK-BIM_venv/bin/activate
 python -m pip install -r requirements.txt
@@ -180,7 +180,7 @@ LOCAL_LLM_MODEL="qwen3:30b" python main.py
 ```bash
 pgrep ollama > /dev/null || ollama serve > ~/.ollama/server.log 2>&1 &
 sleep 2
-cd ASK-BIM
+cd ASK-BIM-Local
 source ASK-BIM_venv/bin/activate
 LOCAL_LLM_MODEL="qwen3:30b" python main.py
 ```
