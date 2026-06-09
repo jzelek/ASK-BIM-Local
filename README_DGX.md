@@ -1,6 +1,8 @@
 # **ASK-BIM: Building Information Tool**
 A tool designed to process natural language user queries about buildings using SPARQL queries on an IFC-based Knowledge Graph. This repo modifies the original ASK-BIM to allow it to work with local models instead of the original OpenAI setup. It also provides a systematic approach to handle IFC files of any name.
 
+These instructions are specifically for the NVIDIA DGX Spark.
+
 ---
 
 ## IFC to LBD Graph Conversion Process
